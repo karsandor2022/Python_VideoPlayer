@@ -9,5 +9,5 @@ COPY app/ ./app
 
 EXPOSE 8000
 
-CMD ["gunicorn", "-w", "4", "-k", "uvicorn.workers.UvicornWorker", "app.main:app", "-b", "0.0.0.0:8000"]
-# Use this Dockerfile to build a container for a Python video processing application.
+# Use Gunicorn WSGI server (correct for Flask)
+CMD ["gunicorn", "app.main:app", "-b", "0.0.0.0:8000", "-w", "4"]
