@@ -1,8 +1,2 @@
-fastapi
-uvicorn
-sqlalchemy
-pydantic
 flask
-requests
-jinja2
-python-multipart
+gunicorn
