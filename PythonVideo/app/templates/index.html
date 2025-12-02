@@ -3,37 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Video Player</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
+
 <body>
+
+<header>
     <h1>Video Player</h1>
+</header>
 
-    <h2>Select a Video</h2>
-    <form method="post">
-        <select name="video_id">
-            {% for id, title in videos %}
-                <option value="{{ id }}">{{ title }}</option>
-            {% endfor %}
-        </select>
-        <button type="submit">Play</button>
-    </form>
+<div class="main-container">
 
+    <!-- Video Player Section -->
     {% if selected_video %}
-        <h2>Now Playing</h2>
-        <iframe width="560" height="315" src="{{ selected_video }}" frameborder="0" allowfullscreen></iframe>
+    <div class="player-wrapper">
+        <iframe src="{{ selected_video }}" allowfullscreen></iframe>
+    </div>
     {% endif %}
 
-    <h2>Add a Video</h2>
-    <form method="post" action="{{ url_for('add') }}">
-        <input type="text" name="title" placeholder="Video Title" required>
-        <input type="url" name="url" placeholder="Embed URL" required>
-        <button type="submit">Add</button>
-    </form>
+    <!-- Action Sections -->
+    <div class="actions">
 
-    <h2>Delete a Video</h2>
-    <ul>
-        {% for id, title in videos %}
-            <li>{{ title }} <a href="{{ url_for('delete', video_id=id) }}">Delete</a></li>
-        {% endfor %}
-    </ul>
+        <!-- Play -->
+        <div class="card">
+            <h2>Select a Video</h2>
+            <form method="post">
+                <select name="video_id">
+                    {% for id, title in videos %}
+                        <option value="{{ id }}">{{ title }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Play</button>
+            </form>
+        </div>
+
+        <!-- Add -->
+        <div class="card">
+            <h2>Add a Video</h2>
+            <form method="post" action="{{ url_for('add') }}">
+                <input type="text" name="title" placeholder="Video Title" required>
+                <input type="url" name="url" placeholder="Embed URL" required>
+                <button type="submit">Add</button>
+            </form>
+        </div>
+
+        <!-- Delete -->
+        <div class="card">
+            <h2>Delete a Video</h2>
+            <ul>
+                {% for id, title in videos %}
+                <li>
+                    {{ title }}
+                    <a href="{{ url_for('delete', video_id=id) }}">Delete</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 </html>
