@@ -62,17 +62,6 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                echo "Deploying application using Docker Compose..."
-                sh """
-                    docker compose down
-                    docker compose up -d --build
-                """
-            }
-        }
-    }
-
     post 
         success {
             echo "Deployment successful!"
