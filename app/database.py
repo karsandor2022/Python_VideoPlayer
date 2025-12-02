@@ -21,8 +21,8 @@ def init_db():
         c.executemany(
             "INSERT INTO videos (title, url) VALUES (?, ?)",
             [
-                ("Sample Video 1", "https://www.youtube.com/embed/dQw4w9WgXcQ"),
-                ("Sample Video 2", "https://www.youtube.com/embed/3JZ_D3ELwOQ")
+                ("Rick Ashley Never Gonna Give You Up", "https://www.youtube.com/embed/dQw4w9WgXcQ"),
+                ("Ed Shiren Azizam", "https://www.youtube.com/embed/MI9ZpIKgyf0")
             ]
         )
     conn.commit()
