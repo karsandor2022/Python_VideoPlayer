@@ -65,7 +65,6 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying application using Docker Compose..."
-                // Use legacy docker-compose
                 sh """
                     docker-compose down
                     docker-compose up -d --build
