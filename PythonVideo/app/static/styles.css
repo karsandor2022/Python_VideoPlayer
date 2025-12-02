@@ -75,6 +75,16 @@ input, select {
     font-size: 15px;
 }
 
+/* Limit textbox width inside cards */
+.card input,
+.card select,
+.card button {
+    max-width: 260px;
+    width: 100%;
+    margin: 0 auto;
+    display: block;
+}
+
 button {
     margin-top: 10px;
     width: 100%;
@@ -82,4 +92,7 @@ button {
     background: #6a6ad1;
     color: white;
     border: none;
-    bord
+    border-radius: 12px;
+    font-size: 16px;
+    cursor: pointer;
+}
