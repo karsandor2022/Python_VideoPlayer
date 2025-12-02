@@ -28,12 +28,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                echo "Running tests..."
-                sh "echo 'No tests implemented yet'"
-            }
-        }
 
         stage('Build Docker Image') {
             steps {
