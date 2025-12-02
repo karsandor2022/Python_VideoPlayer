@@ -1,10 +1,15 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'python:3.11-slim'
+            args '-v /var/run/docker.sock:/var/run/docker.sock'
+        }
+    }
 
     environment {
         IMAGE_NAME = "python-video-app"
         IMAGE_TAG = "latest"
-        DOCKERHUB_REPO = "thecrafter22/python-video-app"   // <-- EDIT THIS
+        DOCKERHUB_REPO = "thecrafter22/python-video-app"
     }
 
     stages {
@@ -19,15 +24,21 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 echo "Installing dependencies..."
-                sh "pip install -r requirements.txt"
+                sh "pip install --no-cache-dir -r requirements.txt"
             }
         }
 
         stage('Run Tests') {
             steps {
                 echo "Running tests..."
-                // Placeholder for actual tests
                 sh "echo 'No tests implemented yet'"
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                echo "Building Docker image..."
+                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
             }
         }
 
@@ -54,10 +65,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo "Deploying application using Docker Compose..."
-                sh """
-                    docker compose down
-                    docker compose up -d --build
-                """
+                sh "docker compose down && docker compose up -d --build"
             }
         }
     }
