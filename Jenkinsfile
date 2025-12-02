@@ -66,14 +66,14 @@ pipeline {
             steps {
                 echo "Deploying application using Docker Compose..."
                 sh """
-                    docker-compose down
-                    docker-compose up -d --build
+                    docker compose down
+                    docker compose up -d --build
                 """
             }
         }
     }
 
-    post {
+    post 
         success {
             echo "Deployment successful!"
         }
