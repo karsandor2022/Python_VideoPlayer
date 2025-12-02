@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = "video-app"
+        IMAGE_NAME = "python-video-app"
         IMAGE_TAG = "latest"
-        DOCKERHUB_REPO = "your_dockerhub_username/video-app"   // <-- EDIT THIS
+        DOCKERHUB_REPO = "thecrafter22/python-video-app"   // <-- EDIT THIS
     }
 
     stages {
@@ -31,17 +31,7 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                echo "Building Docker image..."
-                sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-            }
-        }
-
         stage('Docker Login') {
-            when {
-                expression { return false }   // enable if pushing to DockerHub
-            }
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
                                                  usernameVariable: 'USER',
@@ -51,12 +41,9 @@ pipeline {
             }
         }
 
-        stage('Push to Registry') {
-            when {
-                expression { return false }  // set to true if you want this enabled
-            }
+        stage('Push to DockerHub') {
             steps {
-                echo "Pushing Docker image..."
+                echo "Pushing Docker image to DockerHub..."
                 sh """
                     docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${DOCKERHUB_REPO}:${IMAGE_TAG}
                     docker push ${DOCKERHUB_REPO}:${IMAGE_TAG}
